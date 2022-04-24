@@ -26,6 +26,7 @@
  Create ssh public on default machine.
  Move public key "scp {key_pub} user@ip:/home/{username}" to server.
  Add public key into .ssh/authorized_keys folder on server.
+ cat ~/id_rsa.pub >> ~/.ssh/authorized_keys
 
  Disable ssh login via password.
  sudo vim /etc/ssh/sshd_config
@@ -87,3 +88,8 @@
 
   Update group:
   newgrp docker 
+
+  ### Start on Boot
+
+  sudo systemctl enable/disable docker.service
+  sudo systemctl enable/disable containerd.service
