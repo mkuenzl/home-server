@@ -1,5 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
+# pip install mysql-connector-python
 
 config = {
     'user': 'user',
@@ -13,7 +14,7 @@ config = {
 
 def main():
     mysql_connection, cursor = connect()
-    close_connection(mysql_connection, cursor)
+    disconnect(mysql_connection, cursor)
 
 
 def connect():
@@ -34,7 +35,7 @@ def connect():
         print("Error while connecting to MySQL", e)
 
 
-def close_connection(connection, cursor):
+def disconnect(connection, cursor):
     if connection.is_connected():
         cursor.close()
         connection.close()
