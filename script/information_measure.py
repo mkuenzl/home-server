@@ -14,7 +14,7 @@ def process_information():
     for data in processData:
         processCpuPercentage += float(data.split()[2])
     # print(f"process | count:{processCount}, percentage:{processCpuPercentage}")
-    return {"processCount": processCount, "processCpuPercentage": processCpuPercentage}
+    return {"process_count": processCount, "process_cpu_percentage": processCpuPercentage}
     
 
 def memory_information():
@@ -27,7 +27,7 @@ def memory_information():
     free = float(memoryData[3])/1000
     available = float(memoryData[6])/1000
     # print(f"memory | total:{total} used:{used} free:{free} available:{available}")
-    return {"memoryTotal": total, "memoryUsed": used, "memoryFree": free, "memoryAvailable": available}
+    return {"memory_total": total, "memory_used": used, "memory_free": free, "memory_available": available}
     
 
 def ping_information():
@@ -38,7 +38,7 @@ def ping_information():
     max = pingData[2].strip()
     deviation = pingData[3].strip()
     # print(f"ping | min:{min} avg:{avg} max:{max} dev:{deviation}")
-    return {"pingMin": float(min), "pingAvg": float(avg), "pingMax": float(max), "pingDeviation": float(deviation)}
+    return {"ping_min": float(min), "ping_avg": float(avg), "ping_max": float(max), "ping_dev": float(deviation)}
 
 
 def server_information():
@@ -47,7 +47,7 @@ def server_information():
     serverName = subprocess.check_output("hostname").decode('UTF-8')
     serverName = serverName.strip()
     # print(f"server | date:{dateTime} name:{serverName}")
-    return {"dateTime": dateTime.strftime("%Y-%m-%d %H:%M:%S"), "serverName": serverName}
+    return {"timestamp": dateTime.strftime("%Y-%m-%d %H:%M:%S"), "host": serverName}
 
 
 def temperature_information():
@@ -55,13 +55,17 @@ def temperature_information():
     cpuTemp = float(cpuTemp) / 1000
     gpuTemp = subprocess.getoutput("vcgencmd measure_temp | sed \"s/[^0-9.]//g\"")
     # print(f"temperature | cpu:{cpuTemp} gpu:{gpuTemp}")
-    return {"tempCpu": cpuTemp, "tempGpu": float(gpuTemp)}
-    
+    return {"temp_cpu": cpuTemp, "temp_gpu": float(gpuTemp)}
 
-if __name__ == '__main__':
+
+def retrieve():
     stats_arr = {**memory_information(), 
         **server_information(), 
         **process_information(), 
         **ping_information(), 
         **temperature_information()}
-    print(json.dumps([stats_arr], sort_keys=False, indent=4))
+    return stats_arr
+    
+
+if __name__ == '__main__':
+    print(json.dumps([retrieve()], sort_keys=False, indent=4))
