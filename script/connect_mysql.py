@@ -1,5 +1,6 @@
 import mysql.connector
 from mysql.connector import Error
+import retrieve_stats
 # pip install mysql-connector-python
 
 config = {
@@ -14,6 +15,10 @@ config = {
 
 def main():
     mysql_connection, cursor = connect()
+    cursor.execute("describe server_stats")
+    record = cursor.fetchall()
+    print("table: ", record)
+    print(retrieve_stats.memory_information())
     disconnect(mysql_connection, cursor)
 
 
