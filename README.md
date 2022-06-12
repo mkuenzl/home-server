@@ -1,5 +1,5 @@
 # home-server
- Use raspberri pi 4 to build a home server while working. 
+ Use raspberri pi 4 to build a home server. 
 
 ## Decide which system to use.
  Either Ubuntu 21.10 desktop or server.
